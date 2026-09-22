@@ -8,19 +8,19 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Crea algunos ejemplos iniciales para que la página no quede vacía.
+     * Crea los datos iniciales de la página.
      * El administrador puede editarlos o eliminarlos desde el panel.
      */
     public function run(): void
     {
-        $juanita = Persona::create([
-            'nombre' => 'Juanita',
+        $maybe = Persona::create([
+            'nombre' => 'Maybe',
             'codigo' => '001',
-            'frase_principal' => 'Tu sonrisa es la flor más hermosa de todo mi jardín.',
+            'frase_principal' => 'Tu sonrisa es la flor más hermosa para mi.',
             'mensaje_especial' => 'Quiero que sepas que cada vez que veo flores amarillas, pienso en ti. Eres la luz que convierte mis días grises en primavera. No cambies nunca esa manera tan bonita de mirar la vida.',
         ]);
 
-        $juanita->frases()->createMany([
+        $maybe->frases()->createMany([
             ['frase' => 'Gracias por existir y por llenar mis días de alegría.'],
             ['frase' => 'El mundo es un lugar más bonito cuando estás tú.'],
             ['frase' => 'Que esta flor amarilla ilumine tu día como tú iluminas el mío.'],
