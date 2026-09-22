@@ -57,14 +57,29 @@
         @endif
 
         @if ($persona->frases->isNotEmpty())
-            <h2 class="titulo-frases">Frases para ti</h2>
+            <h2 class="titulo-frases con-flores">
+                <span class="titulo-flor" aria-hidden="true"><x-flor-margarita clase="tfn"/></span>
+                <span class="titulo-frases-texto">Frases para ti</span>
+                <span class="titulo-flor" aria-hidden="true"><x-flor-margarita clase="tfn"/></span>
+            </h2>
             <div class="lista-frases">
                 @foreach ($persona->frases as $frase)
                     <p class="frase" style="--d: {{ $loop->iteration }}">
                         <span class="flor-marcador" aria-hidden="true">✿</span>
+                        <x-flor-tulipan clase="frase-flor ff-izq"/>
+                        <x-flor-sol clase="frase-flor ff-der"/>
                         {{ $frase->frase }}
                     </p>
                 @endforeach
+            </div>
+            <div class="ramo-decorativo" aria-hidden="true">
+                <x-hoja clase="rd-h"/>
+                <x-flor-margarita clase="rd-fl r-1"/>
+                <x-flor-sol clase="rd-fl r-2"/>
+                <x-flor-tulipan clase="rd-fl r-3"/>
+                <x-flor-margarita clase="rd-fl r-4"/>
+                <x-flor-sol clase="rd-fl r-5"/>
+                <x-hoja clase="rd-h"/>
             </div>
         @endif
     </article>

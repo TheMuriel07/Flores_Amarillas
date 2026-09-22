@@ -515,6 +515,32 @@ img {
     color: var(--dorado-oscuro);
 }
 
+.titulo-frases.con-flores {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.titulo-flor {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+}
+
+.titulo-flor svg {
+    width: 30px;
+    filter: drop-shadow(0 3px 6px rgba(240, 165, 0, 0.5));
+    animation:
+        balanceo 3.8s ease-in-out infinite,
+        respiroSuave 2.6s ease-in-out infinite;
+}
+
+.titulo-flor:last-of-type svg {
+    animation-delay: 0.9s, 0.5s;
+}
+
 .lista-frases {
     display: grid;
     gap: 14px;
@@ -534,12 +560,13 @@ img {
     box-shadow: 0 6px 16px rgba(200, 150, 0, 0.10);
     animation: aparecerArriba 0.8s ease both;
     animation-delay: calc(var(--d, 1) * 0.22s);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .frase:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 26px rgba(200, 150, 0, 0.18);
+    box-shadow: 0 12px 26px rgba(200, 150, 0, 0.18), 0 0 0 2px rgba(240, 165, 0, 0.35);
+    border-left-color: var(--miel);
 }
 
 .flor-marcador {
@@ -549,6 +576,81 @@ img {
     font-size: 1.1rem;
     color: #FF9E1B;
     animation: latido 2.6s ease-in-out infinite;
+}
+
+/* Pequeñas flores que brotan junto a cada frase */
+.frase-flor {
+    position: absolute;
+    width: 24px;
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 3px 6px rgba(240, 165, 0, 0.55));
+    animation:
+        brotarPequeña 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+        balanceo-suave 3.4s ease-in-out infinite;
+    animation-delay:
+        calc(var(--d, 1) * 0.22s + 0.45s),
+        calc(var(--d, 1) * 0.22s + 1.6s);
+}
+
+.ff-izq {
+    left: -10px;
+    top: 4px;
+    transform-origin: 50% 100%;
+}
+
+.ff-der {
+    right: -10px;
+    bottom: -14px;
+    transform-origin: 50% 100%;
+}
+
+/* Ramo de flores bajo la lista de frases */
+.ramo-decorativo {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+    pointer-events: none;
+}
+
+.ramo-decorativo::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    transform: translateX(-50%);
+    width: 320px;
+    height: 46px;
+    background: radial-gradient(ellipse at center, rgba(255, 210, 63, 0.4), transparent 70%);
+    filter: blur(6px);
+    animation: respiroSuave 3s ease-in-out infinite;
+}
+
+.rd-fl {
+    width: 34px;
+    transform-origin: 50% 100%;
+    animation: balanceo 3.8s ease-in-out infinite;
+}
+
+.rd-fl.r-1 { animation-delay: 0.1s; }
+.rd-fl.r-2 { width: 44px; animation-delay: 0.5s; animation-duration: 4.4s; }
+.rd-fl.r-3 { animation-delay: 0.3s; animation-duration: 3.2s; }
+.rd-fl.r-4 { width: 38px; animation-delay: 0.7s; animation-duration: 4.8s; }
+.rd-fl.r-5 { animation-delay: 0.2s; animation-duration: 3.4s; }
+
+.rd-h {
+    width: 48px;
+    opacity: 0.9;
+    transform-origin: 50% 100%;
+    animation: balanceo 4.4s ease-in-out infinite;
+}
+
+.rd-h:last-child {
+    animation-delay: 0.6s;
+    animation-duration: 4.8s;
 }
 
 /* --------------------------------------------------------------------------
@@ -833,6 +935,30 @@ img {
     50% { filter: brightness(1.18) saturate(1.12); }
 }
 
+@keyframes brotarPequeña {
+    0% {
+        opacity: 0;
+        transform: scale(0.15) rotate(-40deg);
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes balanceo-suave {
+    0%, 100% { transform: rotate(-5deg) translateY(0) scale(1); }
+    50% { transform: rotate(6deg) translateY(-4px) scale(1.06); }
+}
+
+@keyframes respiroSuave {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+}
+
 /* --------------------------------------------------------------------------
    10. Diseño adaptable (responsive)
    -------------------------------------------------------------------------- */
@@ -894,7 +1020,8 @@ img {
     .hoja-fija,
     .flor-svg,
     .hoja-svg,
-    .titulo-grande span {
+    .titulo-grande span,
+    .ramo-decorativo::before {
         animation: none !important;
     }
 
